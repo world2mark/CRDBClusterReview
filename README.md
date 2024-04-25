@@ -4,14 +4,15 @@ This service captures the current state of cluster from a platform, configuratio
 
 
 ## Prerequisites
-1 - __NodeJS 20__ must be installed (an older version probably works fine)
-2 - __NPM install__ needs to be run if you don't have the node_modules
+1. __NodeJS 20__ must be installed (an older version probably works fine)
+2. __NPM install__ needs to be run if you don't have the node_modules
 
 
 ## To Run
 
 ### Step 1: Configuration file
 
+Included is a sample config file, named __*config-example.json*__.  You can copy this and rename it to __config.json__ to accommodate your environments.
 This is just an example of what the 
 ```
 {
@@ -33,17 +34,17 @@ This is just an example of what the
 
 ### Step 2: Run commands
 
-You can run it directly: __*node App*__
+1. You can run it directly: __*node App*__
 
-You can run it via NPM: __*NPM start*__
+2. You can run it via NPM: __*NPM start*__
 
 
 ## Results
 
 2 files are created, suffixed with a timestamp:
 
-1 - CRDB-Compare-Results-1714074196668.html
-- This is the HTML-formatted results
+1. CRDB-Compare-Results-1714074196668.html
+ - This is the HTML-formatted results
 
-2 - CRDB-Compare-Results-1714074196668.json
-- This is the raw JSON that you can apply for further, offline investigation
+2. CRDB-Compare-Results-1714074196668.json
+ - This is the raw JSON that you can apply for further, offline investigation
