@@ -1,0 +1,41 @@
+<table style="width: 100%; background: #666666; padding: 0.25em; border-radius: 0.4em;">
+    <tr>
+        <td>
+            <span class='purple_header'>Zone Configuration Differences</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-top: 0.5em;padding-bottom: 0.5em;">
+            <span class="purple_desc">This list identifies all mismatched zone configurations between the 2 clusters.
+                This will include the zone-configs across all databases therefore DB object equality/alignment is required for a truly identical cluster.
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <% if(DiffsJSON.length > 0) { %>
+        <td style="border-radius: 0.3em;background: white;padding: 1em;">
+            <table style="border-collapse: collapse;width: 100%;">
+                <tr>
+                    <th class="t_header">Target</th>
+                    <% for(const clusterMetadata of ReviewsToCompare) { %>
+                        <th class="t_header"><span style='color: #666666'>Cluster: </span><%- clusterMetadata.ConnName %>&nbsp;<span style='font-size: 0.7em; color: #666666'><%- new
+                            Date(clusterMetadata.TheTS).toLocaleString() %></span>
+                        </th>
+                        <% }; %>
+                </tr>
+                <% for(const diffElement of DiffsJSON) { %>
+                    <tr>
+                        <td class="t_body"><%- diffElement.Target %></td>
+                        <td class="t_body"><% if(diffElement.LeftPre) { %><pre style="font-weight: bolder;"><%- diffElement.DiffLeftVal %></pre><% } else { %><%- diffElement.DiffLeftVal %><% }; %></td>
+                        <td class="t_body"><% if(diffElement.RightPre) { %><pre style="font-weight: bolder;"><%- diffElement.DiffRightVal %></pre><% } else { %><%- diffElement.DiffRightVal %><% }; %></td>
+                    </tr>
+                    <% }; %>
+            </table>
+        </td>
+        <% } else { %>
+        <td style="border-radius: 0.3em;background: white;padding: 1em;color: darkgreen;">
+            <span style="font-family: 'Trebuchet MS';">Zone configurations are identical across both clusters</span>
+        </td>
+        <% }; %>
+    </tr>
+</table>

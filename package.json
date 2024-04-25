@@ -1,0 +1,19 @@
+{
+    "name": "CRDBClusterReview",
+    "version": "0.0.1",
+    "description": "Mark Zlamal - Cluster compare tool....  you are better off running this on https://amc.auracoda.com",
+    "keywords": [
+        "AURACODA",
+        "CockroachDB"
+    ],
+    "engines": {
+        "node": "20.11"
+    },
+    "scripts": {
+        "start": "node App"
+    },
+    "dependencies": {
+        "ejs": "latest",
+        "pg": "^8.8.0"
+    }
+}

@@ -1,0 +1,143 @@
+<!-- https://jsbin.com/visimub/edit?html,js,output -->
+
+<style>
+    .CCParaText {
+        text-shadow: 1px 1px 2px white;
+        font-family: 'Trebuchet MS';
+        font-size: 0.9em;
+        text-align: justify;
+    }
+</style>
+<p class="CCParaText">
+    This service captures the current state of cluster from a platform, configuration, and metadata perspective.
+    It generates a document that summarizes database cluster that lets you report on how it may be changing over
+    time. This is ideal to identify outdated settings or trends how a cluster may have been augmented.
+    The output of this service is also used to compare multiple clusters to validate and differentiate settings when
+    deploying dev, test, staging, and production deployments.
+</p>
+<div style="padding: 1em;">
+    <table style="border: 2px solid #dddddd; width: 90%; margin:auto;">
+        <tr>
+            <td style="width: 50%;padding-left: 1em;padding-right: 1em;">
+                <p class="CCParaText">
+                    To explore your cluster details, or to compare clusters settings, the metadata must first be scanned &amp; captured.
+                    Each scan is timestamped and saved below, allowing you to not only compare between PROD &amp; TEST environments, but
+                    also to track changes of a single cluster over time.
+                </p>
+            </td>
+            <td style="width: 50%;text-align: center;">
+                <p>
+                    <div style="position:relative;display:inline-block;padding: 0.25em;">
+                        <button id="CaptureReviewBtn" disabled><span id="CaptureReviewText"></span></button>
+                        <div id="CaptureReviewSpinner" class="gpt_spinner"></div>
+                    </div>
+                    <br>
+                    <span id="LastCaptureTS" class="FooterSpan"></span>
+                </p>
+             </td>
+        </tr>
+    </table>    
+</div>
+<style>
+    .SelectableItem {
+        display: flex;
+        text-shadow: 1px 1px 3px rgba(255, 255, 255, 1.0);
+        font-size: 0.8em;
+        font-family: 'Trebuchet MS';
+        white-space: nowrap;
+        padding: 0.6em 1em 0.6em 1em;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 4px;
+        border: 2px solid transparent;
+        align-items: center;
+        user-select: none;
+    }
+
+    #SelectableReviewList .ui-selectee {
+        border: 1px solid transparent;
+        user-select: none;
+    }
+    
+    #SelectableReviewList .ui-selecting {
+        border: 1px solid #cc3388;
+    }
+    
+    #SelectableReviewList .ac-selected {
+        border: 1px solid #eeaa00;
+        background: #ffdd66;
+    }
+    
+    .ui-selectable-helper {
+        display: none;
+    }
+
+    .ClusterReviewOuterDiv {
+        height: 15em;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        border: 3px solid rgba(0, 0, 0, 0.2);
+        user-select: none;
+    }
+
+    .OrangeBackground {
+        background: orange;
+    }
+    
+    .capture_status_left {
+        font-size: 0.8em;
+        font-family: 'Trebuchet MS';
+        padding-right: 1em;
+        white-space: nowrap;
+        color: #888888;
+    }
+
+    .capture_status_right {
+        font-size: 0.8em;
+        font-family: 'Trebuchet MS';
+        color: #333333;
+    }
+</style>
+
+<div style="padding: 1em;">
+    <table style="border: 2px solid #dddddd; width: 90%; margin:auto;">
+        <tr>
+            <td style="width: 50%;padding-left: 1em;padding-right: 1em;">
+                <p class="CCParaText">
+                    Select 2 historical metadata captures to generate a comparison-report on the clusters.
+                    This service allows you to view or download the report for audit and tracking purposes.
+                </p>
+            </td>
+            <td style="width: 50%;text-align: center;">
+                <div class="ClusterReviewOuterDiv" style="padding: 0.25em;">
+                    <div class="SortableListInnerDiv">
+                        <ol id="SelectableReviewList" style="margin-block-start: 0.2em; margin-block-end: 0.2em; padding-inline-start: 0;"></ol>
+                    </div>
+                </div>
+                <table style="margin: auto;">
+                    <tr>
+                        <td>
+                            <div style="position:relative;display:inline-block;padding: 0.25em;">
+                                <input type="button" id="runClusterReview" value="Generate Report" disabled />
+                                <div id="prl_spinner" class="gpt_spinner"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="position:relative;display:inline-block;padding: 0.25em;">
+                                <button id="deleteClusterReviews" disabled><span id="DeleteReviewsBtnText"
+                                    style="color: darkred;">Delete ...</span></button>
+                                <div id="delete_cc_spinner" class="gpt_spinner"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+           </td>
+        </tr>
+    </table>    
+</div>
+<template id="CaptureStatusJobPopup">
+    <div class="ClusterReviewOuterDiv" style="padding: 0.25em;">
+        <div class="SortableListInnerDiv">
+            <table id="CaptureStatusTable"></table>
+        </div>
+    </div>
+</template>

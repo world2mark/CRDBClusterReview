@@ -1,0 +1,14 @@
+{
+    "LeftCluster": {
+        "ConnName": "Sample Cluster (eg: QA/dev)",
+        "ConnSQL": "postgresql://uid:pw@mycluster-qa-endpoint.com:26257/defaultdb",
+        "ConnUI": "https://uid:pw@mycluster-qa-endpoint.com",
+        "CA": "file-path-to-ca"
+    },
+    "RightCluster": {
+        "ConnName": "Sample Cluster (eg: Prod Env)",
+        "ConnSQL": "postgresql://uid:pw@mycluster-prod-endpoint.com:26257/defaultdb",
+        "ConnUI": "https://uid:pw@mycluster-prod-endpoint.com",
+        "CA": "file-path-to-ca"
+    }
+}
